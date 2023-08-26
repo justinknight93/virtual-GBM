@@ -1,5 +1,6 @@
 # virtual-GBM
 An emulation of the GigBAR Move with a built-in Art-Net receiver. Designed to connect to Engine OS devices.
+[![Youtube video](https://img.youtube.com/vi/yNkF_pa70hc/0.jpg)](https://www.youtube.com/watch?v=yNkF_pa70hc)
 
 ## .env variables
 WEB_PORT - The port to run the local webserver on.
