@@ -1,0 +1,156 @@
+<html>
+
+<head>
+    <title>Gigbar move</title>
+    <style>
+        body {
+            margin: 0;
+            padding-bottom: 3rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        #data {
+            width: 100vw;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .par {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            border-radius: 100%;
+            background-color: red;
+            padding: 5px;
+            mix-blend-mode: lighten;
+        }
+
+        .head {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            border-radius: 100%;
+            background-color: transparent;
+            padding: 5px;
+            mix-blend-mode: lighten;
+        }
+
+        .headLight {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            border-radius: 100%;
+            background-color: red;
+            padding: 5px;
+            mix-blend-mode: lighten;
+            pointer-events: none;
+        }
+
+        .container {
+            filter: blur(15px);
+            width: 100%;
+        }
+
+        .moveable:hover {
+            box-shadow: 0px 0px 0px 10px white inset;
+            opacity: 100%;
+        }
+
+        #settings {
+            flex: 1;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="/js/settings.js"></script>
+    <div class="container">
+        <div id="par1" class="moveable par"></div>
+        <div id="par2" class="moveable par"></div>
+        <div id="head1" class="moveable head">
+            <div id="headLight1" class="headLight"></div>
+        </div>
+        <div id="head2" class="moveable head">
+            <div id="headLight2" class="headLight"></div>
+        </div>
+    </div>
+
+    <!-- <div id="data"></div> -->
+    <dialog id="settings" open>
+        <form id="settingsForm" method="dialog">
+            <div>
+                <label for="headXOffset">Head X Offset</label>
+                <input type="range" id="headXOffset" name="headXOffset" min="-50" max="50"
+                    onchange="handleHeadXOffsetChange(event)" />
+            </div>
+            <div><label for="headYOffset">Head Y Offset</label>
+                <input type="range" id="headYOffset" name="headYOffset" min="-50" max="50"
+                    onchange="handleHeadYOffsetChange(event)" />
+            </div>
+
+            <div><label for="head1Invert">Invert Head 1</label>
+                <input type="checkbox" id="head1Invert" name="head1Invert" onchange="handleHead1Invert(event)" />
+            </div>
+
+            <div><label for="head2Invert">Invert Head 2</label>
+                <input type="checkbox" id="head2Invert" name="head2Invert" onchange="handleHead2Invert(event)" />
+            </div>
+
+            <div><label for="blurAmount">Blur Amount</label>
+                <input type="range" id="blurAmount" name="blurAmount" min="0" max="100"
+                    onchange="handleBlurChange(event)" />
+            </div>
+            <input type="submit" value="Close">
+        </form>
+
+        <dialog open>
+            <form id="form" method="dialog">
+                <label for="ip">Unicast IP:</label><br>
+                <select name="languages" id="ip"></select>
+                <input type="submit" value="Submit" />
+            </form>
+        </dialog>
+
+
+    </dialog>
+
+
+    <script type="text/javascript" src="/dist/socket.io.js"></script>
+    <script src="/js/lights.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('DMX message', function (data) {
+            updateLights(data);
+        });
+
+        socket.on('IP list', function (data) {
+            const ipSelectElm = document.querySelector('#ip');
+            if (ipSelectElm.childNodes.length == 0) {
+                data.forEach(ipOption => {
+                    const optionTag = document.createElement("option");
+                    optionTag.value = ipOption.address;
+                    optionTag.innerText = ipOption.address;
+                    ipSelectElm.appendChild(optionTag);
+                });
+            }
+
+        });
+
+        const form = document.getElementById('form');
+        const input = document.getElementById('ip');
+
+        form.addEventListener('submit', function (e) {
+            if (input.value) {
+                socket.emit('connectDMX', input.value);
+            }
+        });
+    </script>
+</body>
+
+
+</html>
