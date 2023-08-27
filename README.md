@@ -23,3 +23,6 @@ DMX_UNIVERSE - The DMX universe to listen to.
 
 ## What's working and what's not
 There are a lot of missing fixtures and DMX code handlers. Right now the 2 pars are fully working and the two moving heads are mostly working. There is no strobing or gobos on the moving heads yet. Everything else is TBA.
+
+## Tech details
+VirtualGBM is a node.js app. The server code is located in index.js and all of the client code is in the public folder. If you want to run the code from source, install node and from the root folder run `npm install` and `npm run start`. To build a new exe file you can use pkg by running `npm install -g pkg` and `npm run package`.
