@@ -3,8 +3,8 @@ let currentDMX = null;
 const fixtures = {
     par1: { id: "par1", grab: false, x: 0, y: 0, size: 300, red: 0, blue: 0, green: 0, uv: 0, rbgMod: 0, strobeSpeed: 0, strobe: true, strobeTimer: 0 },
     par2: { id: "par2", grab: false, x: 0, y: 0, size: 300, red: 0, blue: 0, green: 0, uv: 0, rbgMod: 0, strobeSpeed: 0, strobe: true, strobeTimer: 0 },
-    head1: { id: "head1", childId: "headLight1", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0 },
-    head2: { id: "head2", childId: "headLight2", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0 }
+    head1: { id: "head1", childId: "headLight1", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0, gobo:0, gobos: ['1.gif','2.gif','3.gif','4.gif','5.gif','6.gif','7.gif','8.gif']},
+    head2: { id: "head2", childId: "headLight2", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0, gobo:0, gobos: ['1.gif','2.gif','3.gif','4.gif','5.gif','6.gif','7.gif','8.gif']}
 }
 const screenHeight = screen.height;
     const screenWidth = screen.width;
@@ -135,6 +135,32 @@ const updateLights = (dmx) => {
             fixtures.head1.color = 0;
             break;
     }
+    switch (true) {
+        case (currentDMX[28] > 223):
+            fixtures.head1.gobo = 7;
+            break;
+        case (currentDMX[28] > 191):
+            fixtures.head1.gobo = 6;
+            break;
+        case (currentDMX[28] > 159):
+            fixtures.head1.gobo = 5;
+            break;
+        case (currentDMX[28] > 127):
+            fixtures.head1.gobo = 4;
+            break;
+        case (currentDMX[28] > 95):
+            fixtures.head1.gobo = 3;
+            break;
+        case (currentDMX[28] > 63):
+            fixtures.head1.gobo = 2;
+            break;
+        case (currentDMX[28] > 31):
+            fixtures.head1.gobo = 1;
+            break;
+        default:
+            fixtures.head1.gobo = 0;
+            break;
+    }
 
     document.querySelector('#headLight1').style.top = `${Math.sin(((mod(fixtures.head1.tilt + settings.headYOffset,100) / 100) * (2 * Math.PI))) * middleH}px`;
     if (settings.invertHead1) {
@@ -146,6 +172,7 @@ const updateLights = (dmx) => {
     }
     
     document.querySelector('#headLight1').style.opacity = `${fixtures.head1.dimmer}%`;
+    document.querySelector('#headLight1').style.backgroundImage = `url('gobos/${fixtures.head1.gobos[fixtures.head1.gobo]}')`
     document.querySelector('#headLight1').style.backgroundColor = fixtures.head1.colors[fixtures.head1.color];
 
     // Get and parse head2
@@ -179,6 +206,33 @@ const updateLights = (dmx) => {
             fixtures.head2.color = 0;
             break;
     }
+    console.log(currentDMX[34])
+    switch (true) {
+        case (currentDMX[34] > 223):
+            fixtures.head2.gobo = 7;
+            break;
+        case (currentDMX[34] > 191):
+            fixtures.head2.gobo = 6;
+            break;
+        case (currentDMX[34] > 159):
+            fixtures.head2.gobo = 5;
+            break;
+        case (currentDMX[34] > 127):
+            fixtures.head2.gobo = 4;
+            break;
+        case (currentDMX[34] > 95):
+            fixtures.head2.gobo = 3;
+            break;
+        case (currentDMX[34] > 63):
+            fixtures.head2.gobo = 2;
+            break;
+        case (currentDMX[34] > 31):
+            fixtures.head2.gobo = 1;
+            break;
+        default:
+            fixtures.head2.gobo = 0;
+            break;
+    }
 
     document.querySelector('#headLight2').style.top = `${Math.sin(((mod(fixtures.head2.tilt + settings.headYOffset,100) / 100) * (2 * Math.PI))) * middleH}px`;
     if (settings.invertHead2) {
@@ -190,6 +244,7 @@ const updateLights = (dmx) => {
     }
     
     document.querySelector('#headLight2').style.opacity = `${fixtures.head2.dimmer}%`;
+    document.querySelector('#headLight2').style.backgroundImage = `url('gobos/${fixtures.head2.gobos[fixtures.head2.gobo]}')`
     document.querySelector('#headLight2').style.backgroundColor = fixtures.head2.colors[fixtures.head2.color];
 }
 
