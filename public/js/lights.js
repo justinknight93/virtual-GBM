@@ -3,8 +3,8 @@ let currentDMX = null;
 const fixtures = {
     par1: { id: "par1", grab: false, x: 0, y: 0, size: 300, red: 0, blue: 0, green: 0, uv: 0, rbgMod: 0, strobeSpeed: 0, strobe: true, strobeTimer: 0 },
     par2: { id: "par2", grab: false, x: 0, y: 0, size: 300, red: 0, blue: 0, green: 0, uv: 0, rbgMod: 0, strobeSpeed: 0, strobe: true, strobeTimer: 0 },
-    head1: { id: "head1", childId: "headLight1", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0, gobo:0, gobos: ['1.gif','2.gif','3.gif','4.gif','5.gif','6.gif','7.gif','8.gif']},
-    head2: { id: "head2", childId: "headLight2", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0, gobo:0, gobos: ['1.gif','2.gif','3.gif','4.gif','5.gif','6.gif','7.gif','8.gif']}
+    head1: { id: "head1", childId: "headLight1", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0, gobo:0, gobos: ['1.png','2.png','3.png','4.png','5.png','6.png','7.png','8.png']},
+    head2: { id: "head2", childId: "headLight2", grab: false, x: 0, y: 0, size: 100, color: 0, colors: ["#ffffff", "#59adf6", "#ffb480", "#ff6961", "#08cad1", "#f8f38d", "#42d6a4", "#c780e8"], pan: 0, tilt: 0, dimmer: 0, gobo:0, gobos: ['1.png','2.png','3.png','4.png','5.png','6.png','7.png','8.png']}
 }
 const screenHeight = screen.height;
     const screenWidth = screen.width;
