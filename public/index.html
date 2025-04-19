@@ -2,70 +2,7 @@
 
 <head>
     <title>Gigbar move</title>
-    <style>
-        body {
-            margin: 0;
-            padding-bottom: 3rem;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: black;
-            overflow: hidden;
-        }
-
-        #data {
-            width: 100vw;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        .par {
-            width: 300px;
-            height: 300px;
-            position: absolute;
-            border-radius: 100%;
-            background-color: red;
-            padding: 5px;
-            mix-blend-mode: lighten;
-        }
-
-        .head {
-            width: 100px;
-            height: 100px;
-            position: absolute;
-            border-radius: 100%;
-            background-color: transparent;
-            padding: 5px;
-            mix-blend-mode: lighten;
-        }
-
-        .headLight {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            border-radius: 100%;
-            background-color: red;
-            background-size: cover;
-            padding: 5px;
-            mix-blend-mode: lighten;
-            pointer-events: none;
-            background-blend-mode: multiply;
-        }
-
-        .container {
-            filter: blur(15px);
-            width: 100%;
-        }
-
-        .moveable:hover {
-            box-shadow: 0px 0px 0px 10px white inset;
-            opacity: 100%;
-        }
-
-        #settings {
-            flex: 1;
-            flex-direction: row;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -74,16 +11,51 @@
         <div id="par1" class="moveable par"></div>
         <div id="par2" class="moveable par"></div>
         <div id="head1" class="moveable head">
-            <div id="headLight1" class="headLight"></div>
+            <div id="headLight1" class="headLight smooth"></div>
         </div>
         <div id="head2" class="moveable head">
-            <div id="headLight2" class="headLight"></div>
+            <div id="headLight2" class="headLight smooth"></div>
         </div>
+        <div id="neon" class="moveable neon">Zombie Pixel</div>
     </div>
 
     <!-- <div id="data"></div> -->
     <dialog id="settings" open>
         <form id="settingsForm" method="dialog">
+            <div class="dialogLabel">Pars:</div>
+            <div><label for="par1Show">Show Par 1</label>
+                <input type="checkbox" id="par1Show" name="par1Show" onchange="handlePar1Show(event)" />
+            </div>
+
+            <div><label for="par2Show">Show Par 2</label>
+                <input type="checkbox" id="par2Show" name="par2Show" onchange="handlePar2Show(event)" />
+            </div>
+
+            <div><label for="blurPars">Blur Pars</label>
+                <input type="range" id="blurPars" name="blurPars" min="0" max="100"
+                    onchange="handleBlurParsChange(event)" />
+            </div>
+
+            <br />
+            <div class="dialogLabel">Neon:</div>
+            <div><label for="neonShow">Show Neon:</label>
+                <input type="checkbox" id="neonShow" name="neonShow" onchange="handleNeonShow(event)" />
+            </div>
+
+            <div><label for="neonText">Show Par 2</label>
+                <input type="text" id="neonText" name="neonText" onchange="handleNeonText(event)" />
+            </div>
+
+            <br />
+            <div class="dialogLabel">Moving Heads:</div>
+            <div><label for="head1Show">Show Head 1</label>
+                <input type="checkbox" id="head1Show" name="head1Show" onchange="handleHead1Show(event)" />
+            </div>
+
+            <div><label for="head2Show">Show Head 2</label>
+                <input type="checkbox" id="head2Show" name="head2Show" onchange="handleHead2Show(event)" />
+            </div>
+
             <div>
                 <label for="headXOffset">Head X Offset</label>
                 <input type="range" id="headXOffset" name="headXOffset" min="-50" max="50"
@@ -102,10 +74,13 @@
                 <input type="checkbox" id="head2Invert" name="head2Invert" onchange="handleHead2Invert(event)" />
             </div>
 
-            <div><label for="blurAmount">Blur Amount</label>
-                <input type="range" id="blurAmount" name="blurAmount" min="0" max="100"
-                    onchange="handleBlurChange(event)" />
+            <div><label for="blurHeads">Blur Heads</label>
+                <input type="range" id="blurHeads" name="blurHeads" min="0" max="100"
+                    onchange="handleBlurHeadsChange(event)" />
             </div>
+            <br />
+
+            <br />
             <input type="submit" value="Close">
         </form>
 
