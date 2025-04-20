@@ -16,6 +16,16 @@
         <div id="head2" class="moveable head">
             <div id="headLight2" class="headLight smooth"></div>
         </div>
+        <div id="derby1" class="moveable derby">
+            <div id="derbyLight1Red" class="derbyLight derbyRedLight"></div>
+            <div id="derbyLight1Green" class="derbyLight derbyGreenLight"></div>
+            <div id="derbyLight1Blue" class="derbyLight derbyBlueLight"></div>
+        </div>
+        <div id="derby2" class="moveable derby">
+            <div id="derbyLight2Red" class="derbyLight derbyRedLight"></div>
+            <div id="derbyLight2Green" class="derbyLight derbyGreenLight"></div>
+            <div id="derbyLight2Blue" class="derbyLight derbyBlueLight"></div>
+        </div>
         <div id="neon" class="moveable neon">Zombie Pixel</div>
     </div>
 
@@ -32,7 +42,7 @@
             </div>
 
             <div><label for="blurPars">Blur Pars</label>
-                <input type="range" id="blurPars" name="blurPars" min="0" max="100"
+                <input type="range" id="blurPars" name="blurPars" min="0" max="30"
                     onchange="handleBlurParsChange(event)" />
             </div>
 
@@ -42,7 +52,7 @@
                 <input type="checkbox" id="neonShow" name="neonShow" onchange="handleNeonShow(event)" />
             </div>
 
-            <div><label for="neonText">Show Par 2</label>
+            <div><label for="neonText">Neon Text</label>
                 <input type="text" id="neonText" name="neonText" onchange="handleNeonText(event)" />
             </div>
 
@@ -58,12 +68,16 @@
 
             <div>
                 <label for="headXOffset">Head X Offset</label>
-                <input type="range" id="headXOffset" name="headXOffset" min="-50" max="50"
+                <input type="range" id="headXOffset" name="headXOffset" min="-500" max="500"
                     onchange="handleHeadXOffsetChange(event)" />
             </div>
             <div><label for="headYOffset">Head Y Offset</label>
-                <input type="range" id="headYOffset" name="headYOffset" min="-50" max="50"
+                <input type="range" id="headYOffset" name="headYOffset" min="-500" max="500"
                     onchange="handleHeadYOffsetChange(event)" />
+            </div>
+            <div><label for="headMoveScale">Head Movement Scale</label>
+                <input type="range" id="headMoveScale" name="headMoveScale" min="0" max="3" step="0.1"
+                    onchange="handleHeadMoveScaleChange(event)" />
             </div>
 
             <div><label for="head1Invert">Invert Head 1</label>
@@ -75,13 +89,27 @@
             </div>
 
             <div><label for="blurHeads">Blur Heads</label>
-                <input type="range" id="blurHeads" name="blurHeads" min="0" max="100"
+                <input type="range" id="blurHeads" name="blurHeads" min="0" max="30"
                     onchange="handleBlurHeadsChange(event)" />
             </div>
             <br />
+            <div class="dialogLabel">Derby Lights:</div>
+            <div><label for="derby1Show">Show Derby 1</label>
+                <input type="checkbox" id="derby1Show" name="derby1Show" onchange="handleDerby1Show(event)" />
+            </div>
+
+            <div><label for="derby2Show">Show Derby 2</label>
+                <input type="checkbox" id="derby2Show" name="derby2Show" onchange="handleDerby2Show(event)" />
+            </div>
+
+            <div><label for="blurDerbys">Blur Derby Lights</label>
+                <input type="range" id="blurDerbys" name="blurDerbys" min="0" max="30"
+                    onchange="handleBlurDerbysChange(event)" />
+            </div>
 
             <br />
             <input type="submit" value="Close">
+            <button onclick="handleFullscreen()">FullScreen</button>
         </form>
 
         <dialog open>

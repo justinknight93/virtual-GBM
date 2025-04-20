@@ -8,9 +8,13 @@ let settings = {
   head2Show: true,
   headXOffset: 0,
   headYOffset: 0,
+  headMoveScale: 1,
   invertHead1: false,
   invertHead2: false,
   blurHeads: 5,
+  derby1Show: true,
+  derby2Show: true,
+  blurDerbys: 5,
 };
 
 const save = () => {
@@ -20,19 +24,35 @@ const save = () => {
 const load = () => {
   const storedSettings = localStorage.getItem("settings");
   if (storedSettings) {
-    settings = JSON.parse(storedSettings);
-    document.querySelector("#par1Show").value = settings.par1Show;
-    document.querySelector("#par2Show").value = settings.par2Show;
+    const newSettings = JSON.parse(storedSettings);
+    // If the stored settings are up to date
+    if (
+      Object.keys(newSettings).every((key) => {
+        return Object.keys(settings).includes(key);
+      })
+    ) {
+      console.log("loaded settings");
+      settings = { ...newSettings };
+    } else {
+      console.log("settings mismatch");
+      save();
+    }
+    document.querySelector("#par1Show").checked = settings.par1Show;
+    document.querySelector("#par2Show").checked = settings.par2Show;
     document.querySelector("#blurPars").value = settings.blurPars;
-    document.querySelector("#neonShow").value = settings.neonShow;
+    document.querySelector("#neonShow").checked = settings.neonShow;
     document.querySelector("#neonText").value = settings.neonText;
-    document.querySelector("#head1Show").value = settings.head1Show;
-    document.querySelector("#head2Show").value = settings.head2Show;
+    document.querySelector("#head1Show").checked = settings.head1Show;
+    document.querySelector("#head2Show").checked = settings.head2Show;
     document.querySelector("#headXOffset").value = settings.headXOffset;
     document.querySelector("#headYOffset").value = settings.headYOffset;
+    document.querySelector("#headMoveScale").value = settings.headMoveScale;
     document.querySelector("#head1Invert").checked = settings.invertHead1;
     document.querySelector("#head2Invert").checked = settings.invertHead2;
     document.querySelector("#blurHeads").value = settings.blurHeads;
+    document.querySelector("#derby1Show").checked = settings.derby1Show;
+    document.querySelector("#derby1Show").checked = settings.derby2Show;
+    document.querySelector("#blurDerbys").value = settings.blurDerbys;
   }
 };
 
@@ -76,6 +96,11 @@ const handleHeadYOffsetChange = (e) => {
   save();
 };
 
+const handleHeadMoveScaleChange = (e) => {
+  settings.headMoveScale = parseFloat(e.target.value);
+  save();
+};
+
 const handleHead1Invert = (e) => {
   settings.invertHead1 = e.target.checked;
   save();
@@ -96,6 +121,21 @@ const handleBlurHeadsChange = (e) => {
   save();
 };
 
+const handleDerby1Show = (e) => {
+  settings.derby1Show = e.target.checked;
+  save();
+};
+
+const handleDerby2Show = (e) => {
+  settings.derby2Show = e.target.checked;
+  save();
+};
+
+const handleBlurDerbysChange = (e) => {
+  settings.blurDerbys = parseInt(e.target.value);
+  save();
+};
+
 document.addEventListener("DOMContentLoaded", function (event) {
   load();
 });
@@ -106,3 +146,27 @@ document.addEventListener("keydown", function (event) {
     settingsDialog.open = true;
   }
 });
+
+const handleFullscreen = () => {
+  const elem = document.documentElement;
+
+  if (!document.fullscreenElement) {
+    // Enter fullscreen
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  } else {
+    // Exit fullscreen
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+};
