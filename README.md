@@ -12,17 +12,18 @@ DMX_UNIVERSE - The DMX universe to listen to.
 2. Load the project file on your player's storage device
 3. Open the lighting view in Engine OS
 4. Load the project file from your storage device
-5. Turn on "Broadcast Art-Net" from the lighting preferences.
+5. Turn on "Broadcast Art-Net" from the lighting preferences of your Engine device.
 6. On Computer, start VirtualGBM.exe. A new browser window should open with the basic settings dialogs showing.
 7. Select the IP from the drop down that represents your computer's network IP.
-8. Engine OS should connect automatically.
+8. Engine OS should connect automatically. If your devices do not connect you may have firewall settings blocking network communication. A wired connection may be required.
 
 ## Controls
 - Click and drag to move lights.
 - Hover and scroll to resize the lights.
+- Esc to open settings
 
 ## What's working and what's not
-There are a lot of missing fixtures and DMX code handlers. Right now the 2 pars are fully working and the two moving heads are mostly working. There is no strobing or gobos on the moving heads yet. Everything else is TBA.
+Most of the lights are now working to some degree. Derby lights still need some work and I'm looking into what's needed for the lasers.
 
 ## Tech details
 VirtualGBM is a node.js app. The server code is located in index.js and all of the client code is in the public folder. If you want to run the code from source, install node and from the root folder run `npm install` and `npm run start`. To build a new exe file you can use pkg by running `npm install -g @yao-pkg/pkg` and `npm run package`. If you've previously installed pkg you'll need to uninstall it with `npm uninstall -g pkg`.
