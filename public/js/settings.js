@@ -147,6 +147,38 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+document.addEventListener("mousedown", () => {
+  if (document.fullscreenElement) {
+    handleFullscreen();
+  }
+});
+
+let wakeLock = null;
+
+const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request("screen");
+    wakeLock.addEventListener("release", () => {
+      console.log("Wake Lock was released");
+    });
+    console.log("Wake Lock is active");
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
+const releaseWakeLock = async () => {
+  if (!wakeLock) {
+    return;
+  }
+  try {
+    await wakeLock.release();
+    wakeLock = null;
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
 const handleFullscreen = () => {
   const elem = document.documentElement;
 
@@ -159,6 +191,7 @@ const handleFullscreen = () => {
     } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
     }
+    requestWakeLock();
   } else {
     // Exit fullscreen
     if (document.exitFullscreen) {
@@ -168,5 +201,6 @@ const handleFullscreen = () => {
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
+    releaseWakeLock();
   }
 };

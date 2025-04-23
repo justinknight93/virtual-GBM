@@ -8,13 +8,14 @@
   50% { opacity: 0; }
 }
 
-.strobe {
-  animation: strobe 0.2s infinite;
-}
-
-.hide-cursor {
+:root:fullscreen {
   cursor: none;
   pointer-events: none;
+}
+
+
+.strobe {
+  animation: strobe 0.2s infinite;
 }
 
 body {
@@ -62,6 +63,7 @@ body {
     mix-blend-mode: lighten;
     pointer-events: none;
     background-blend-mode: multiply;
+    background-image: url('gobos/1.png');
 }
 
 .derby {
@@ -118,7 +120,7 @@ body {
 }
 
 .smooth {
-        transition: top 0.3s ease, left 0.3s ease, right 0.3s ease, color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+        transition: bottom 0.3s ease, top 0.3s ease, left 0.3s ease, right 0.3s ease, color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .container {
@@ -137,6 +139,10 @@ body {
 
 .dialogLabel {
     font-weight: 600;
+}
+
+.preload {
+  display: none;
 }
 
 input[type="checkbox"] {
